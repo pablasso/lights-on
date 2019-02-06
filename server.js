@@ -28,6 +28,8 @@ server.get("/", (req, res, next) => {
 server.post("/", (req, res, next) => {
   const { MONGO_URL } = req.webtaskContext.secrets;
   const model = req.body;
+  model.date = new Date().getTime();
+
   MongoClient.connect(MONGO_URL, (err, client) => {
     if (err) return next(err);
     const db = client.db(database);
